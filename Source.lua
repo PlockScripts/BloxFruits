@@ -2,8 +2,7 @@ local Scripts = {
 	{
 		GameId = 994732206,
 		UrlPath = "BloxFruits.luau"
-	},
-	{
+	}
 }
 
 local fetcher, urls = {}, {}
@@ -43,7 +42,7 @@ do
 			SettingsCode = "unpack(game:GetService('HttpService'):JSONDecode('" .. EncodedSettings .. "'))"
 		end
 		
-		pcall(queueteleport, ("loadstring(game:HttpGet('%smain.luau'))(%s)"):format(urls.Repository, SettingsCode))
+		pcall(queueteleport, ("loadstring(game:HttpGet('%sSource.lua'))(%s)"):format(urls.Repository, SettingsCode))
 	end
 end
 
