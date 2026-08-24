@@ -1,6 +1,6 @@
 --[[
-     This Open Source was made for the purpose of use in the redz Hub script 
-     The script below was developed by plock4444 & Team of the new redz Hub 
+     This Open Source was made for the purpose of use in the redz Hub script
+     The script below was developed by plock4444 & Team of the new redz Hub
 ]]
 
 local Players = game:GetService("Players")
@@ -79,21 +79,6 @@ end
 
 local PlayerTP = {}
 
-function PlayerTP:GetHover(RootPart)
-    local BV = RootPart:FindFirstChild("KAHover")
-
-    if not BV then
-        BV = Instance.new("BodyVelocity")
-        BV.Name = "KAHover"
-        BV.MaxForce = Vector3.new(1e9, 1e9, 1e9)
-        BV.P = 1e9
-        BV.Velocity = Vector3.zero
-        BV.Parent = RootPart
-    end
-
-    return BV
-end
-
 function PlayerTP:SetSpeed(Speed)
     Settings.TweenSpeed = tonumber(Speed) or Settings.TweenSpeed
 end
@@ -115,7 +100,6 @@ function PlayerTP:Stop()
 
     if Character then
         local RootPart = Character:FindFirstChild("HumanoidRootPart")
-        local Humanoid = Character:FindFirstChildOfClass("Humanoid")
 
         if RootPart then
             local Hover = RootPart:FindFirstChild("KAHover")
@@ -125,10 +109,6 @@ function PlayerTP:Stop()
             end
 
             RootPart.AssemblyAngularVelocity = Vector3.zero
-        end
-
-        if Humanoid and Humanoid.Health > 0 then
-            Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
         end
     end
 
@@ -182,7 +162,6 @@ function PlayerTP:Teleport(TargetCFrame)
         end
 
         local TargetPosition = TargetCFrame.Position
-        local TargetY = TargetPosition.Y + 3
 
         while ActiveTween and CurrentTweenId == TweenId do
             if _ENV.StopAllTP or _ENV.OnFarm == false then
@@ -202,7 +181,7 @@ function PlayerTP:Teleport(TargetCFrame)
                 break
             end
 
-            local Direction = Vector3.new(TargetPosition.X, TargetY, TargetPosition.Z) - CurrentPosition
+            local Direction = TargetPosition - CurrentPosition
 
             if Direction.Magnitude <= 0 then
                 break
@@ -269,13 +248,6 @@ RunService.Stepped:Connect(function()
     if not Humanoid or not RootPart or Humanoid.Health <= 0 then
         PlayerTP:Stop()
         return
-    end
-
-    if not Humanoid.Sit then
-        Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
-
-        local Hover = PlayerTP:GetHover(RootPart)
-        Hover.Velocity = Vector3.zero
     end
 
     if Settings.NoClip then
