@@ -1,7 +1,7 @@
 --[[
      This Open Source was made for the purpose of use in the redz Hub script 
      The script below was developed by plock4444 & Team of the new redz Hub 
- ]]
+]]
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -13,6 +13,8 @@ local _ENV = (getgenv or getrenv or getfenv)()
 local ActiveTween = false
 local TweenId = 0
 local CurrentTarget = nil
+
+_ENV.StopAllTP = _ENV.StopAllTP or false
 
 local Settings = {
     TweenSpeed = 300,
@@ -122,6 +124,7 @@ function PlayerTP:Stop()
             end
 
             RootPart.AssemblyLinearVelocity = Vector3.zero
+            RootPart.AssemblyAngularVelocity = Vector3.zero
         end
     end
 
@@ -129,7 +132,7 @@ function PlayerTP:Stop()
 end
 
 function PlayerTP:Teleport(TargetCFrame)
-    if not TargetCFrame then
+    if not TargetCFrame or _ENV.StopAllTP then
         return false
     end
 
@@ -140,6 +143,10 @@ function PlayerTP:Teleport(TargetCFrame)
     end
 
     self:Stop()
+
+    if _ENV.StopAllTP then
+        return false
+    end
 
     local Character = GetCharacter()
     local Humanoid = Character:FindFirstChildOfClass("Humanoid")
@@ -174,7 +181,7 @@ function PlayerTP:Teleport(TargetCFrame)
         local TargetY = TargetPosition.Y + 3
 
         while ActiveTween and CurrentTweenId == TweenId do
-            if _ENV.OnFarm == false then
+            if _ENV.StopAllTP or _ENV.OnFarm == false then
                 PlayerTP:Stop()
                 return
             end
@@ -203,7 +210,7 @@ function PlayerTP:Teleport(TargetCFrame)
 
             local Delta = task.wait()
 
-            if not ActiveTween or CurrentTweenId ~= TweenId then
+            if _ENV.StopAllTP or not ActiveTween or CurrentTweenId ~= TweenId then
                 return
             end
 
@@ -221,6 +228,14 @@ function PlayerTP:Teleport(TargetCFrame)
                 CurrentPosition + MoveStep,
                 TargetPosition
             )
+        end
+
+        if _ENV.StopAllTP then
+            if CurrentTweenId == TweenId then
+                PlayerTP:Stop()
+            end
+
+            return
         end
 
         if ActiveTween
@@ -244,7 +259,7 @@ RunService.Stepped:Connect(function()
         return
     end
 
-    if _ENV.OnFarm == false then
+    if _ENV.StopAllTP or _ENV.OnFarm == false then
         PlayerTP:Stop()
         return
     end
@@ -273,6 +288,16 @@ RunService.Stepped:Connect(function()
 
     if Settings.NoClip then
         ToggleNoClip(true)
+    end
+end)
+
+task.spawn(function()
+    while task.wait(0.05) do
+        if _ENV.StopAllTP then
+            if ActiveTween then
+                PlayerTP:Stop()
+            end
+        end
     end
 end)
 
