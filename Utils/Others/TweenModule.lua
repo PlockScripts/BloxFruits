@@ -124,12 +124,11 @@ function PlayerTP:Stop()
                 Hover:Destroy()
             end
 
-            RootPart.AssemblyLinearVelocity = Vector3.zero
             RootPart.AssemblyAngularVelocity = Vector3.zero
         end
 
         if Humanoid and Humanoid.Health > 0 then
-            Humanoid:ChangeState(Enum.HumanoidStateType.Running)
+            Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
         end
     end
 
