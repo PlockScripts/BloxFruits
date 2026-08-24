@@ -115,6 +115,7 @@ function PlayerTP:Stop()
 
     if Character then
         local RootPart = Character:FindFirstChild("HumanoidRootPart")
+        local Humanoid = Character:FindFirstChildOfClass("Humanoid")
 
         if RootPart then
             local Hover = RootPart:FindFirstChild("KAHover")
@@ -125,6 +126,10 @@ function PlayerTP:Stop()
 
             RootPart.AssemblyLinearVelocity = Vector3.zero
             RootPart.AssemblyAngularVelocity = Vector3.zero
+        end
+
+        if Humanoid and Humanoid.Health > 0 then
+            Humanoid:ChangeState(Enum.HumanoidStateType.Running)
         end
     end
 
@@ -198,11 +203,7 @@ function PlayerTP:Teleport(TargetCFrame)
                 break
             end
 
-            local Direction = Vector3.new(
-                TargetPosition.X,
-                TargetY,
-                TargetPosition.Z
-            ) - CurrentPosition
+            local Direction = Vector3.new(TargetPosition.X, TargetY, TargetPosition.Z) - CurrentPosition
 
             if Direction.Magnitude <= 0 then
                 break
@@ -223,11 +224,7 @@ function PlayerTP:Teleport(TargetCFrame)
             end
 
             DriveTarget.AssemblyLinearVelocity = Vector3.zero
-
-            DriveTarget.CFrame = CFrame.new(
-                CurrentPosition + MoveStep,
-                TargetPosition
-            )
+            DriveTarget.CFrame = CFrame.new(CurrentPosition + MoveStep, TargetPosition)
         end
 
         if _ENV.StopAllTP then
@@ -238,11 +235,7 @@ function PlayerTP:Teleport(TargetCFrame)
             return
         end
 
-        if ActiveTween
-        and CurrentTweenId == TweenId
-        and _ENV.OnFarm ~= false
-        and DriveTarget
-        and DriveTarget.Parent then
+        if ActiveTween and CurrentTweenId == TweenId and _ENV.OnFarm ~= false and DriveTarget and DriveTarget.Parent then
             DriveTarget.CFrame = TargetCFrame
         end
 
@@ -293,10 +286,8 @@ end)
 
 task.spawn(function()
     while task.wait(0.05) do
-        if _ENV.StopAllTP then
-            if ActiveTween then
-                PlayerTP:Stop()
-            end
+        if _ENV.StopAllTP and ActiveTween then
+            PlayerTP:Stop()
         end
     end
 end)
