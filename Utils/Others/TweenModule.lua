@@ -91,6 +91,10 @@ function PlayerTP:IsTweening()
     return ActiveTween
 end
 
+function PlayerTP:GetTarget()
+    return CurrentTarget
+end
+
 function PlayerTP:Stop()
     ActiveTween = false
     TweenId += 1
