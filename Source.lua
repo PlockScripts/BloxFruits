@@ -1,7 +1,7 @@
 local Scripts = {
 	{
 		GameId = 994732206,
-		UrlPath = "BloxFruits.luau"
+		UrlPath = "BLOX-FRUITS-BETA.lua"
 	}
 }
 
