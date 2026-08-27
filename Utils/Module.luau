@@ -764,7 +764,15 @@ end
 			end
 		end
 	end
-	
+
+  	function Module.WalkOnWater(Value)
+          local Water = workspace.Map["WaterBase-Plane"]
+           if not Water then
+        return
+      end
+       Water.Size = Value and Vector3.new(1000, 112, 1000) or Vector3.new(1000, 80, 1000)
+     end
+
 	function Module.IsBoss(Name: string): boolean
 		return Module.Bosses[Name] and true or false
 	end
@@ -1977,7 +1985,7 @@ end
 				local Distance = 900
 				local ClosestsDistance = if Equipped.ToolTip == "Gun" then 120 else 60
 
-               if not _G.NoAimPlayer then
+               if not Settings.NoAimPlayer then
 				for i = 1, #Players do
 					local __Player = Players[i]
 					local Character = __Player.Character
@@ -1997,7 +2005,7 @@ end
 				end
             end
 				
-				if not _G.NoAimMobs then
+				if not Settings.NoAimMobs then
 				for i = 1, #Enemies do
 					local Enemy = Enemies[i]
 					local UpperTorso = Enemy and Enemy:FindFirstChild("UpperTorso")
