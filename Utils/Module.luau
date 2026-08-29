@@ -1069,31 +1069,29 @@ end
 		end
 	})
 
-   Module.FruitsName = setmetatable({}, {
-    __index = function(self, Fruit)
-        if typeof(Fruit) ~= "Instance" or not Fruit.Parent then
-            return "Fruit [ ??? ]"
+	Module.FruitsName = setmetatable({}, {
+	    __index = function(self, Fruit)
+	        if typeof(Fruit) ~= "Instance" or not Fruit.Parent then
+ 	           return "Fruit [ ??? ]"
         end
 
         local RealFruitsName = Module.FruitsId
-        local Name = Fruit.Name
-
-        if Name ~= "Fruit " then
-            rawset(self, Fruit, Name)
-            return Name
-        end
 
         rawset(self, Fruit, "Fruit [ ??? ]")
 
         task.spawn(function()
             pcall(function()
                 if not Fruit.Parent then return end
+
                 local Model = Fruit:WaitForChild("Fruit", 5)
                 if not Model or not Fruit.Parent then return end
+
                 local Idle = FastWait(2, Model, "Idle") or FastWait(1, Model, "Animation") or FastWait(1, Model, "Fruit")
+
                 if Idle and (Idle:IsA("Animation") or Idle:IsA("MeshPart")) and Fruit.Parent then
                     local Property = if Idle:IsA("MeshPart") then "MeshId" else "AnimationId"
                     local RealName = RealFruitsName[Idle[Property] or ""]
+
                     if RealName and type(RealName) == "string" then
                         rawset(self, Fruit, `Fruit [ {RealName} ]`)
                     end
