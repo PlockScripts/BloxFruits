@@ -1070,9 +1070,9 @@ end
 	})
 
 	Module.FruitsName = setmetatable({}, {
-	    __index = function(self, Fruit)
-	        if typeof(Fruit) ~= "Instance" or not Fruit.Parent then
- 	           return "Fruit [ ??? ]"
+      __index = function(self, Fruit)
+          if typeof(Fruit) ~= "Instance" or not Fruit.Parent then
+            return "Fruit [ ??? ]"
         end
 
         local RealFruitsName = Module.FruitsId
@@ -1093,6 +1093,10 @@ end
                     local RealName = RealFruitsName[Idle[Property] or ""]
 
                     if RealName and type(RealName) == "string" then
+                        if not RealName:find("%-") then
+                            RealName = RealName .. "-" .. RealName
+                        end
+
                         rawset(self, Fruit, `Fruit [ {RealName} ]`)
                     end
                 end
