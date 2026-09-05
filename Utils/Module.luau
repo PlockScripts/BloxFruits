@@ -309,238 +309,201 @@ local Module = {} do
 			["rbxassetid://95749033139458"] = "Dragon East"
 		}
 		
-		if SeaId == 1 then
-    Module.Bosses = {
-        ["Saber Expert"] = {
-            NoQuest = true,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Saber Expert"].CFrame
-        },
-
-        ["The Saw"] = {
-            RaidBoss = true,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["The Saw"].CFrame
-        },
-
-        ["Greybeard"] = {
-            RaidBoss = true,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Greybeard"].CFrame
-        },
-
-        ["The Gorilla King"] = {
-            IsBoss = true,
-            Level = 20,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["The Gorilla King"].CFrame,
-            Quest = {"JungleQuest", getQuestPosition("JungleQuest")}
-        },
-
-        ["Bobby"] = {
-            IsBoss = true,
-            Level = 55,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Chef"].CFrame,
-            Quest = {"BuggyQuest1", getQuestPosition("BuggyQuest1")}
-        },
-
-        ["Yeti"] = {
-            IsBoss = true,
-            Level = 105,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Yeti"].CFrame,
-            Quest = {"SnowQuest", getQuestPosition("SnowQuest")}
-        },
-
-        ["Vice Admiral"] = {
-            IsBoss = true,
-            Level = 130,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Vice Admiral"].CFrame,
-            Quest = {"MarineQuest2", getQuestPosition("MarineQuest2"), 2}
-        },
-
-        ["Swan"] = {
-            IsBoss = true,
-            Level = 240,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Swan"].CFrame,
-            Quest = {"ImpelQuest", getQuestPosition("ImpelQuest")}
-        },
-
-        ["Chief Warden"] = {
-            IsBoss = true,
-            Level = 230,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Chief Warden"].CFrame,
-            Quest = {"ImpelQuest", getQuestPosition("ImpelQuest"), 2}
-        },
-
-        ["Warden"] = {
-            IsBoss = true,
-            Level = 220,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Warden"].CFrame,
-            Quest = {"ImpelQuest", getQuestPosition("ImpelQuest"), 1}
-        },
-
-        ["Magma Admiral"] = {
-            IsBoss = true,
-            Level = 350,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Magma Admiral"].CFrame,
-            Quest = {"MagmaQuest", getQuestPosition("MagmaQuest")}
-        },
-
-        ["Fishman Lord"] = {
-            IsBoss = true,
-            Level = 425,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Fishman Lord"].CFrame,
-            Quest = {"FishmanQuest", getQuestPosition("FishmanQuest")}
-        },
-
-        ["Wysper"] = {
-            IsBoss = true,
-            Level = 500,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Wysper"].CFrame,
-            Quest = {"SkyExp1Quest", getQuestPosition("SkyExpQuest")}
-        },
-
-        ["Thunder God"] = {
-            IsBoss = true,
-            Level = 575,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Thunder God"].CFrame,
-            Quest = {"SkyExp2Quest", getQuestPosition("SkyExp2Quest")}
-        },
-
-        ["Cyborg"] = {
-            IsBoss = true,
-            Level = 675,
-            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Cyborg"].CFrame,
-            Quest = {"FountainQuest", getQuestPosition("FountainQuest")}
-        }
-    }
-
-elseif SeaId == 2 then
-    Module.Bosses = {
-        ["Don Swan"] = {
-            RaidBoss = true,
-            Position = CFrame.new(2289, 15, 808)
-        },
-
-        ["Cursed Captain"] = {
-            RaidBoss = true,
-            Position = CFrame.new(912, 186, 33591)
-        },
-
-        ["Darkbeard"] = {
-            RaidBoss = true,
-            Position = CFrame.new(3695, 13, -3599)
-        },
-
-        ["Diamond"] = {
-            IsBoss = true,
-            Level = 750,
-            Position = CFrame.new(-1569, 199, -31),
-            Quest = {"Area1Quest", CFrame.new(-427, 73, 1835)}
-        },
-
-        ["Jeremy"] = {
-            IsBoss = true,
-            Level = 850,
-            Position = CFrame.new(2316, 449, 787),
-            Quest = {"Area2Quest", CFrame.new(635, 73, 919)}
-        },
-
-        ["Orbitus"] = {
-            IsBoss = true,
-            Level = 925,
-            Position = CFrame.new(-2086, 73, -4208),
-            Quest = {"MarineQuest3", CFrame.new(-2441, 73, -3219)}
-        },
-
-        ["Smoke Admiral"] = {
-            IsBoss = true,
-            Level = 1150,
-            Position = CFrame.new(-5078, 24, -5352),
-            Quest = {"IceSideQuest", CFrame.new(-6229, 82, -4853)}
-        },
-
-        ["Awakened Ice Admiral"] = {
-            IsBoss = true,
-            Level = 1400,
-            Position = CFrame.new(6473, 297, -6944),
-            Quest = {"FrostQuest", CFrame.new(5668, 28, -6484)}
-        },
-
-        ["Tide Keeper"] = {
-            IsBoss = true,
-            Level = 1475,
-            Position = CFrame.new(-3711, 77, -11469),
-            Quest = {"ForgottenQuest", CFrame.new(-3056, 240, -10145)}
-        }
-    }
-
-elseif SeaId == 3 then
-    Module.Bosses = {
-        ["Tyrant of the Skies"] = {
-            RaidBoss = true,
-            Position = CFrame.new(-16252, 153, 1394)
-        },
-
-        ["Cake Prince"] = {
-            RaidBoss = true,
-            Position = CFrame.new(-2103, 70, -12165)
-        },
-
-        ["Dough King"] = {
-            RaidBoss = true,
-            Position = CFrame.new(-2103, 70, -12165)
-        },
-
-        ["rip_indra True Form"] = {
-            RaidBoss = true,
-            Position = CFrame.new(-5333, 424, -2673)
-        },
-
-        ["Stone"] = {
-            IsBoss = true,
-            Level = 1550,
-            Position = CFrame.new(-1049, 40, 6791),
-            Quest = {"PiratePortQuest", CFrame.new(-449, 109, 5950)}
-        },
-
-        ["Hydra Leader"] = {
-            IsBoss = true,
-            Level = 1675,
-            Position = CFrame.new(5836, 1019, -83),
-            Quest = {"VenomCrewQuest", CFrame.new(5214, 1004, 761)}
-        },
-
-        ["Kilo Admiral"] = {
-            IsBoss = true,
-            Level = 1750,
-            Position = CFrame.new(2904, 509, -7349),
-            Quest = {"MarineTreeIsland", CFrame.new(2485, 74, -6788)}
-        },
-
-        ["Captain Elephant"] = {
-            IsBoss = true,
-            Level = 1875,
-            Position = CFrame.new(-13393, 319, -8423),
-            Quest = {"DeepForestIsland", CFrame.new(-13233, 332, -7626)}
-        },
-
-        ["Beautiful Pirate"] = {
-            IsBoss = true,
-            Level = 1950,
-            Position = CFrame.new(5370, 22, -89),
-            Quest = {"DeepForestIsland2", CFrame.new(-12682, 391, -9901)}
-        },
-
-        ["Cake Queen"] = {
-            IsBoss = true,
-            Level = 2175,
-            Position = CFrame.new(-710, 382, -11150),
-            Quest = {"IceCreamIslandQuest", CFrame.new(-818, 66, -10964)}
-        },
-
-        ["Longma"] = {
-            NoQuest = true,
-            Position = CFrame.new(-10218, 333, -9444)
-        }
-    }
-end
+		Module.Bosses = {
+			-- Bosses Sea 1
+			["Saber Expert"] = {
+				NoQuest = true,
+				Position = CFrame.new(-1461, 30, -51)
+			},
+			["The Saw"] = {
+				RaidBoss = true,
+				Position = CFrame.new(-690, 15, 1583)
+			},
+			["Greybeard"] = {
+				RaidBoss = true,
+				Position = CFrame.new(-5043, 25, 4262)
+			},
+			["The Gorilla King"] = {
+				IsBoss = true,
+				Level = 20,
+				Position = CFrame.new(-1128, 6, -451),
+				Quest = {"JungleQuest", CFrame.new(-1598, 37, 153)}
+			},
+			["Bobby"] = {
+				IsBoss = true,
+				Level = 55,
+				Position = CFrame.new(-1131, 14, 4080),
+				Quest = {"BuggyQuest1", CFrame.new(-1140, 4, 3829)}
+			},
+			["Yeti"] = {
+				IsBoss = true,
+				Level = 105,
+				Position = CFrame.new(1185, 106, -1518),
+				Quest = {"SnowQuest", CFrame.new(1385, 87, -1298)}
+			},
+			["Vice Admiral"] = {
+				IsBoss = true,
+				Level = 130,
+				Position = CFrame.new(-4807, 21, 4360),
+				Quest = {"MarineQuest2", CFrame.new(-5035, 29, 4326), 2}
+			},
+			["Swan"] = {
+				IsBoss = true,
+				Level = 240,
+				Position = CFrame.new(5230, 4, 749),
+				Quest = {"ImpelQuest", CFrame.new(5191, 4, 692)}
+			},
+			["Chief Warden"] = {
+				IsBoss = true,
+				Level = 230,
+				Position = CFrame.new(5230, 4, 749),
+				Quest = {"ImpelQuest", CFrame.new(5191, 4, 692), 2}
+			},
+			["Warden"] = {
+				IsBoss = true,
+				Level = 220,
+				Position = CFrame.new(5230, 4, 749),
+				Quest = {"ImpelQuest", CFrame.new(5191, 4, 692), 1}
+			},
+			["Magma Admiral"] = {
+				IsBoss = true,
+				Level = 350,
+				Position = CFrame.new(-5694, 18, 8735),
+				Quest = {"MagmaQuest", CFrame.new(-5319, 12, 8515)}
+			},
+			["Fishman Lord"] = {
+				IsBoss = true,
+				Level = 425,
+				Position = CFrame.new(61350, 31, 1095),
+				Quest = {"FishmanQuest", CFrame.new(61122, 18, 1567)}
+			},
+			["Wysper"] = {
+				IsBoss = true,
+				Level = 500,
+				Position = CFrame.new(-7927, 5551, -637),
+				Quest = {"SkyExp1Quest", CFrame.new(-7861, 5545, -381)}
+			},
+			["Thunder God"] = {
+				IsBoss = true,
+				Level = 575,
+				Position = CFrame.new(-7751, 5607, -2315),
+				Quest = {"SkyExp2Quest", CFrame.new(-7903, 5636, -1412)}
+			},
+			["Cyborg"] = {
+				IsBoss = true,
+				Level = 675,
+				Position = CFrame.new(6138, 10, 3939),
+				Quest = {"FountainQuest", CFrame.new(5258, 39, 4052)}
+			},
+			
+			-- Bosses Sea 2
+			["Don Swan"] = {
+				RaidBoss = true,
+				Position = CFrame.new(2289, 15, 808)
+			},
+			["Cursed Captain"] = {
+				RaidBoss = true,
+				Position = CFrame.new(912, 186, 33591)
+			},
+			["Darkbeard"] = {
+				RaidBoss = true,
+				Position = CFrame.new(3695, 13, -3599)
+			},
+			["Diamond"] = {
+				IsBoss = true,
+				Level = 750,
+				Position = CFrame.new(-1569, 199, -31),
+				Quest = {"Area1Quest", CFrame.new(-427, 73, 1835)}
+			},
+			["Jeremy"] = {
+				IsBoss = true,
+				Level = 850,
+				Position = CFrame.new(2316, 449, 787),
+				Quest = {"Area2Quest", CFrame.new(635, 73, 919)}
+			},
+			["Orbitus"] = {
+				IsBoss = true,
+				Level = 925,
+				Position = CFrame.new(-2086, 73, -4208),
+				Quest = {"MarineQuest3", CFrame.new(-2441, 73, -3219)}
+			},
+			["Smoke Admiral"] = {
+				IsBoss = true,
+				Level = 1150,
+				Position = CFrame.new(-5078, 24, -5352),
+				Quest = {"IceSideQuest", CFrame.new(-6229, 82, -4853)}
+			},
+			["Awakened Ice Admiral"] = {
+				IsBoss = true,
+				Level = 1400,
+				Position = CFrame.new(6473, 297, -6944),
+				Quest = {"FrostQuest", CFrame.new(5668, 28, -6484)}
+			},
+			["Tide Keeper"] = {
+				IsBoss = true,
+				Level = 1475,
+				Position = CFrame.new(-3711, 77, -11469),
+				Quest = {"ForgottenQuest", CFrame.new(-3056, 240, -10145)}
+			},
+			
+			-- Bosses Sea 3
+			["Tyrant of the Skies"] = {
+				RaidBoss = true,
+				Position = CFrame.new(-16252, 153, 1394)
+			},
+			["Cake Prince"] = {
+				RaidBoss = true,
+				Position = CFrame.new(-2103, 70, -12165)
+			},
+			["Dough King"] = {
+				RaidBoss = true,
+				Position = CFrame.new(-2103, 70, -12165)
+			},
+			["rip_indra True Form"] = {
+				RaidBoss = true,
+				Position = CFrame.new(-5333, 424, -2673)
+			},
+			["Stone"] = {
+				IsBoss = true,
+				Level = 1550,
+				Position = CFrame.new(-1049, 40, 6791),
+				Quest = {"PiratePortQuest", CFrame.new(-449, 109, 5950)}
+			},
+			["Hydra Leader"] = {
+				IsBoss = true,
+				Level = 1675,
+				Position = CFrame.new(5836, 1019, -83),
+				Quest = {"VenomCrewQuest", CFrame.new(5214, 1004, 761)}
+			},
+			["Kilo Admiral"] = {
+				IsBoss = true,
+				Level = 1750,
+				Position = CFrame.new(2904, 509, -7349),
+				Quest = {"MarineTreeIsland", CFrame.new(2485, 74, -6788)}
+			},
+			["Captain Elephant"] = {
+				IsBoss = true,
+				Level = 1875,
+				Position = CFrame.new(-13393, 319, -8423),
+				Quest = {"DeepForestIsland", CFrame.new(-13233, 332, -7626)}
+			},
+			["Beautiful Pirate"] = {
+				IsBoss = true,
+				Level = 1950,
+				Position = CFrame.new(5370, 22, -89),
+				Quest = {"DeepForestIsland2", CFrame.new(-12682, 391, -9901)}
+			},
+			["Cake Queen"] = {
+				IsBoss = true,
+				Level = 2175,
+				Position = CFrame.new(-710, 382, -11150),
+				Quest = {"IceCreamIslandQuest", CFrame.new(-818, 66, -10964)}
+			},
+			["Longma"] = {
+				NoQuest = true,
+				Position = CFrame.new(-10218, 333, -9444)
+			}
+		}
 		
 		Module.Shop = {
             --[[{"Magic Elf", {{"Buy 2x EXP", {"Candies", "Buy", 1, 1}}, {"Buy Stats Refund", {"Candies", "Buy", 1, 2}}, {"Buy Race Reroll", {"Candies", "Buy", 1, 3}}}},
@@ -1986,7 +1949,7 @@ end
 				return if ClosestList then Hooking.ClosestsEnemies else Hooking.ClosestsEnemies.Closest
 			end
 		end
-	    
+		
 		function Hooking:SetTarget(RootPart: BasePart, Character: Model?, IsEnemy: boolean?): (nil)
 			table.clear(self.ClosestsEnemies)
 			self.ClosestsEnemies.Closest = RootPart
