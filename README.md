@@ -10,15 +10,15 @@
 ### global load
 ```lua
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Scripts/refs/heads/main/main.luau"))(Settings)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/BloxFruits/refs/heads/main/Source.lua"))(Settings)
 ```
 
 - Blox Fruits
 ```lua
 
-local Settings = {
+getgenv().Settings = {
   JoinTeam = "Pirates"; -- Pirates/Marines
   Translator = true; -- true/false
 }
-loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Scripts/refs/heads/main/main.luau"))(Settings)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/BloxFruits/refs/heads/main/Source.lua"))(Settings)
 ```
