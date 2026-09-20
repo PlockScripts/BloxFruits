@@ -1965,7 +1965,7 @@ end
 		return RaidList
 	end)()
 	
-	Module.Tween = (function()
+	--[[Module.Tween = (function()
 		local BodyVelocity = Instance.new("BodyVelocity")
 		BodyVelocity.Velocity = Vector3.zero
 		BodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
@@ -2078,7 +2078,7 @@ end
 		
 		return BodyVelocity
 	end)()
-
+]]
   Module.Hooking = (function()
 		local Hooking = {
 			Skills = CreateDictionary({ "Z", "X", "C", "V", "F" }, true),
@@ -2232,7 +2232,7 @@ end
 		return Hooking
 	end)()
 
-  task.defer(function()
+--[[  task.defer(function()
 	 	local DeathEffect = require(WaitChilds(ReplicatedStorage, "EffectContainer", "Death"))
 	 	local CameraShaker = require(WaitChilds(ReplicatedStorage, "Util", "CameraShaker"))
 		if CameraShaker then
@@ -2242,7 +2242,7 @@ end
  		hookfunction(DeathEffect, function(...) return ... end)
 	 	end
 	end)
-	
+]]	
 	task.spawn(function()
 		local SpawnLocations = Module.SpawnLocations
 		local EnemyLocations = Module.EnemyLocations
