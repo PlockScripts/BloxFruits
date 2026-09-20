@@ -239,6 +239,11 @@ elseif table.find({7449423635, 100117331123089}, game.PlaceId) then
     SeaId = 3
 end
 
+local LevelCap = game.Players.LocalPlayer:GetAttribute("LevelCap")
+if LevelCap and LevelCap > 2800 and LevelCap <= 3000 then
+    LevelCap = 2800
+end
+
 local Module = {} do
 	local Cached = {
 		Closest = nil,
@@ -254,7 +259,7 @@ local Module = {} do
 		Sea = SeaId,
 		SeasName = { "Main", "Dressrosa", "Zou" },
 		MaxMastery = 600,
-		MaxLevel = game.Workspace:GetAttribute("LEVEL_CAP"),
+		MaxLevel = LevelCap,
         StringVersion = require(ReplicatedStorage.BuildInfo).VERSION
 	}
 	
@@ -308,202 +313,243 @@ local Module = {} do
 			["rbxassetid://118054805452821"] = "Gas",
 			["rbxassetid://95749033139458"] = "Dragon East"
 		}
+
+       CACHE_NPC_LIST = require(game.ReplicatedStorage.GuideModule).Data.NPCList
+function getQuestPosition(Name)
+    for _, v in next, CACHE_NPC_LIST do
+        if typeof(v) == "table" then
+            for _, x in next, v do
+                if x == Name then
+                    local Position = v.Position
+                    if typeof(Position) == "CFrame" then
+                        return Position
+                    elseif typeof(Position) == "Vector3" then
+                        return CFrame.new(Position)
+                    end
+                end
+            end
+        end
+    end
+    return nil
+end
 		
-		Module.Bosses = {
-			-- Bosses Sea 1
-			["Saber Expert"] = {
-				NoQuest = true,
-				Position = CFrame.new(-1461, 30, -51)
-			},
-			["The Saw"] = {
-				RaidBoss = true,
-				Position = CFrame.new(-690, 15, 1583)
-			},
-			["Greybeard"] = {
-				RaidBoss = true,
-				Position = CFrame.new(-5043, 25, 4262)
-			},
-			["The Gorilla King"] = {
-				IsBoss = true,
-				Level = 20,
-				Position = CFrame.new(-1128, 6, -451),
-				Quest = {"JungleQuest", CFrame.new(-1598, 37, 153)}
-			},
-			["Bobby"] = {
-				IsBoss = true,
-				Level = 55,
-				Position = CFrame.new(-1131, 14, 4080),
-				Quest = {"BuggyQuest1", CFrame.new(-1140, 4, 3829)}
-			},
-			["Yeti"] = {
-				IsBoss = true,
-				Level = 105,
-				Position = CFrame.new(1185, 106, -1518),
-				Quest = {"SnowQuest", CFrame.new(1385, 87, -1298)}
-			},
-			["Vice Admiral"] = {
-				IsBoss = true,
-				Level = 130,
-				Position = CFrame.new(-4807, 21, 4360),
-				Quest = {"MarineQuest2", CFrame.new(-5035, 29, 4326), 2}
-			},
-			["Swan"] = {
-				IsBoss = true,
-				Level = 240,
-				Position = CFrame.new(5230, 4, 749),
-				Quest = {"ImpelQuest", CFrame.new(5191, 4, 692)}
-			},
-			["Chief Warden"] = {
-				IsBoss = true,
-				Level = 230,
-				Position = CFrame.new(5230, 4, 749),
-				Quest = {"ImpelQuest", CFrame.new(5191, 4, 692), 2}
-			},
-			["Warden"] = {
-				IsBoss = true,
-				Level = 220,
-				Position = CFrame.new(5230, 4, 749),
-				Quest = {"ImpelQuest", CFrame.new(5191, 4, 692), 1}
-			},
-			["Magma Admiral"] = {
-				IsBoss = true,
-				Level = 350,
-				Position = CFrame.new(-5694, 18, 8735),
-				Quest = {"MagmaQuest", CFrame.new(-5319, 12, 8515)}
-			},
-			["Fishman Lord"] = {
-				IsBoss = true,
-				Level = 425,
-				Position = CFrame.new(61350, 31, 1095),
-				Quest = {"FishmanQuest", CFrame.new(61122, 18, 1567)}
-			},
-			["Wysper"] = {
-				IsBoss = true,
-				Level = 500,
-				Position = CFrame.new(-7927, 5551, -637),
-				Quest = {"SkyExp1Quest", CFrame.new(-7861, 5545, -381)}
-			},
-			["Thunder God"] = {
-				IsBoss = true,
-				Level = 575,
-				Position = CFrame.new(-7751, 5607, -2315),
-				Quest = {"SkyExp2Quest", CFrame.new(-7903, 5636, -1412)}
-			},
-			["Cyborg"] = {
-				IsBoss = true,
-				Level = 675,
-				Position = CFrame.new(6138, 10, 3939),
-				Quest = {"FountainQuest", CFrame.new(5258, 39, 4052)}
-			},
-			
-			-- Bosses Sea 2
-			["Don Swan"] = {
-				RaidBoss = true,
-				Position = CFrame.new(2289, 15, 808)
-			},
-			["Cursed Captain"] = {
-				RaidBoss = true,
-				Position = CFrame.new(912, 186, 33591)
-			},
-			["Darkbeard"] = {
-				RaidBoss = true,
-				Position = CFrame.new(3695, 13, -3599)
-			},
-			["Diamond"] = {
-				IsBoss = true,
-				Level = 750,
-				Position = CFrame.new(-1569, 199, -31),
-				Quest = {"Area1Quest", CFrame.new(-427, 73, 1835)}
-			},
-			["Jeremy"] = {
-				IsBoss = true,
-				Level = 850,
-				Position = CFrame.new(2316, 449, 787),
-				Quest = {"Area2Quest", CFrame.new(635, 73, 919)}
-			},
-			["Orbitus"] = {
-				IsBoss = true,
-				Level = 925,
-				Position = CFrame.new(-2086, 73, -4208),
-				Quest = {"MarineQuest3", CFrame.new(-2441, 73, -3219)}
-			},
-			["Smoke Admiral"] = {
-				IsBoss = true,
-				Level = 1150,
-				Position = CFrame.new(-5078, 24, -5352),
-				Quest = {"IceSideQuest", CFrame.new(-6229, 82, -4853)}
-			},
-			["Awakened Ice Admiral"] = {
-				IsBoss = true,
-				Level = 1400,
-				Position = CFrame.new(6473, 297, -6944),
-				Quest = {"FrostQuest", CFrame.new(5668, 28, -6484)}
-			},
-			["Tide Keeper"] = {
-				IsBoss = true,
-				Level = 1475,
-				Position = CFrame.new(-3711, 77, -11469),
-				Quest = {"ForgottenQuest", CFrame.new(-3056, 240, -10145)}
-			},
-			
-			-- Bosses Sea 3
-			["Tyrant of the Skies"] = {
-				RaidBoss = true,
-				Position = CFrame.new(-16252, 153, 1394)
-			},
-			["Cake Prince"] = {
-				RaidBoss = true,
-				Position = CFrame.new(-2103, 70, -12165)
-			},
-			["Dough King"] = {
-				RaidBoss = true,
-				Position = CFrame.new(-2103, 70, -12165)
-			},
-			["rip_indra True Form"] = {
-				RaidBoss = true,
-				Position = CFrame.new(-5333, 424, -2673)
-			},
-			["Stone"] = {
-				IsBoss = true,
-				Level = 1550,
-				Position = CFrame.new(-1049, 40, 6791),
-				Quest = {"PiratePortQuest", CFrame.new(-449, 109, 5950)}
-			},
-			["Hydra Leader"] = {
-				IsBoss = true,
-				Level = 1675,
-				Position = CFrame.new(5836, 1019, -83),
-				Quest = {"VenomCrewQuest", CFrame.new(5214, 1004, 761)}
-			},
-			["Kilo Admiral"] = {
-				IsBoss = true,
-				Level = 1750,
-				Position = CFrame.new(2904, 509, -7349),
-				Quest = {"MarineTreeIsland", CFrame.new(2485, 74, -6788)}
-			},
-			["Captain Elephant"] = {
-				IsBoss = true,
-				Level = 1875,
-				Position = CFrame.new(-13393, 319, -8423),
-				Quest = {"DeepForestIsland", CFrame.new(-13233, 332, -7626)}
-			},
-			["Beautiful Pirate"] = {
-				IsBoss = true,
-				Level = 1950,
-				Position = CFrame.new(5370, 22, -89),
-				Quest = {"DeepForestIsland2", CFrame.new(-12682, 391, -9901)}
-			},
-			["Cake Queen"] = {
-				IsBoss = true,
-				Level = 2175,
-				Position = CFrame.new(-710, 382, -11150),
-				Quest = {"IceCreamIslandQuest", CFrame.new(-818, 66, -10964)}
-			},
-			["Longma"] = {
-				NoQuest = true,
-				Position = CFrame.new(-10218, 333, -9444)
-			}
-		}
+		if SeaId == 1 then
+    Module.Bosses = {
+        ["Saber Expert"] = {
+            NoQuest = true,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Saber Expert"].CFrame
+        },
+
+        ["The Saw"] = {
+            RaidBoss = true,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["The Saw"].CFrame
+        },
+
+        ["Greybeard"] = {
+            RaidBoss = true,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Greybeard"].CFrame
+        },
+
+        ["The Gorilla King"] = {
+            IsBoss = true,
+            Level = 20,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["The Gorilla King"].CFrame,
+            Quest = {"JungleQuest", getQuestPosition("JungleQuest")}
+        },
+
+        ["Bobby"] = {
+            IsBoss = true,
+            Level = 55,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Chef"].CFrame,
+            Quest = {"BuggyQuest1", getQuestPosition("BuggyQuest1")}
+        },
+
+        ["Yeti"] = {
+            IsBoss = true,
+            Level = 105,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Yeti"].CFrame,
+            Quest = {"SnowQuest", getQuestPosition("SnowQuest")}
+        },
+
+        ["Vice Admiral"] = {
+            IsBoss = true,
+            Level = 130,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Vice Admiral"].CFrame,
+            Quest = {"MarineQuest2", getQuestPosition("MarineQuest2"), 2}
+        },
+        ["Warden"] = {
+            IsBoss = true,
+            Level = 220,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Warden"].CFrame,
+            Quest = {"ImpelQuest", getQuestPosition("ImpelQuest"), 2}
+        },
+
+        ["Magma General"] = {
+            IsBoss = true,
+            Level = 350,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Magma Admiral"].CFrame,
+            Quest = {"MagmaQuest", getQuestPosition("MagmaQuest")}
+        },
+
+        ["Fishman Lord"] = {
+            IsBoss = true,
+            Level = 425,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Fishman Lord"].CFrame,
+            Quest = {"FishmanQuest", getQuestPosition("FishmanQuest")}
+        },
+
+        ["Sky Warlord"] = {
+            IsBoss = true,
+            Level = 500,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Wysper"].CFrame,
+            Quest = {"SkyExp1Quest", getQuestPosition("SkyExp1Quest"), 3}
+        },
+
+        ["Lightning God"] = {
+            IsBoss = true,
+            Level = 575,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Thunder God"].CFrame,
+            Quest = {"SkyExp2Quest", getQuestPosition("SkyExp2Quest"), 3}
+        },
+
+        ["Cyborg"] = {
+            IsBoss = true,
+            Level = 675,
+            Position = game:GetService("ReplicatedStorage").FortBuilderReplicatedSpawnPositionsFolder["Cyborg"].CFrame,
+            Quest = {"FountainQuest", getQuestPosition("FountainQuest")}
+        }
+    }
+
+elseif SeaId == 2 then
+    Module.Bosses = {
+        ["Don Swan"] = {
+            RaidBoss = true,
+            Position = CFrame.new(2289, 15, 808)
+        },
+
+        ["Cursed Captain"] = {
+            RaidBoss = true,
+            Position = CFrame.new(912, 186, 33591)
+        },
+
+        ["Darkbeard"] = {
+            RaidBoss = true,
+            Position = CFrame.new(3695, 13, -3599)
+        },
+
+        ["Diamond"] = {
+            IsBoss = true,
+            Level = 750,
+            Position = CFrame.new(-1569, 199, -31),
+            Quest = {"Area1Quest", CFrame.new(-427, 73, 1835)}
+        },
+
+        ["Jeremy"] = {
+            IsBoss = true,
+            Level = 850,
+            Position = CFrame.new(2316, 449, 787),
+            Quest = {"Area2Quest", CFrame.new(635, 73, 919)}
+        },
+
+        ["Orbitus"] = {
+            IsBoss = true,
+            Level = 925,
+            Position = CFrame.new(-2086, 73, -4208),
+            Quest = {"MarineQuest3", CFrame.new(-2441, 73, -3219)}
+        },
+
+        ["Smoke Admiral"] = {
+            IsBoss = true,
+            Level = 1150,
+            Position = CFrame.new(-5078, 24, -5352),
+            Quest = {"IceSideQuest", CFrame.new(-6229, 82, -4853)}
+        },
+
+        ["Awakened Ice Admiral"] = {
+            IsBoss = true,
+            Level = 1400,
+            Position = CFrame.new(6473, 297, -6944),
+            Quest = {"FrostQuest", CFrame.new(5668, 28, -6484)}
+        },
+
+        ["Tide Keeper"] = {
+            IsBoss = true,
+            Level = 1475,
+            Position = CFrame.new(-3711, 77, -11469),
+            Quest = {"ForgottenQuest", CFrame.new(-3056, 240, -10145)}
+        }
+    }
+
+elseif SeaId == 3 then
+    Module.Bosses = {
+        ["Tyrant of the Skies"] = {
+            RaidBoss = true,
+            Position = CFrame.new(-16252, 153, 1394)
+        },
+
+        ["Cake Prince"] = {
+            RaidBoss = true,
+            Position = CFrame.new(-2103, 70, -12165)
+        },
+
+        ["Dough King"] = {
+            RaidBoss = true,
+            Position = CFrame.new(-2103, 70, -12165)
+        },
+
+        ["rip_indra True Form"] = {
+            RaidBoss = true,
+            Position = CFrame.new(-5333, 424, -2673)
+        },
+
+        ["Stone"] = {
+            IsBoss = true,
+            Level = 1550,
+            Position = CFrame.new(-1049, 40, 6791),
+            Quest = {"PiratePortQuest", CFrame.new(-449, 109, 5950)}
+        },
+
+        ["Hydra Leader"] = {
+            IsBoss = true,
+            Level = 1675,
+            Position = CFrame.new(5836, 1019, -83),
+            Quest = {"VenomCrewQuest", CFrame.new(5214, 1004, 761)}
+        },
+
+        ["Kilo Admiral"] = {
+            IsBoss = true,
+            Level = 1750,
+            Position = CFrame.new(2904, 509, -7349),
+            Quest = {"MarineTreeIsland", CFrame.new(2485, 74, -6788)}
+        },
+
+        ["Captain Elephant"] = {
+            IsBoss = true,
+            Level = 1875,
+            Position = CFrame.new(-13393, 319, -8423),
+            Quest = {"DeepForestIsland", CFrame.new(-13233, 332, -7626)}
+        },
+
+        ["Beautiful Pirate"] = {
+            IsBoss = true,
+            Level = 1950,
+            Position = CFrame.new(5370, 22, -89),
+            Quest = {"DeepForestIsland2", CFrame.new(-12682, 391, -9901)}
+        },
+
+        ["Cake Queen"] = {
+            IsBoss = true,
+            Level = 2175,
+            Position = CFrame.new(-710, 382, -11150),
+            Quest = {"IceCreamIslandQuest", CFrame.new(-818, 66, -10964)}
+        },
+
+        ["Longma"] = {
+            NoQuest = true,
+            Position = CFrame.new(-10218, 333, -9444)
+        }
+    }
+end
 		
 		Module.Shop = {
             --[[{"Magic Elf", {{"Buy 2x EXP", {"Candies", "Buy", 1, 1}}, {"Buy Stats Refund", {"Candies", "Buy", 1, 2}}, {"Buy Race Reroll", {"Candies", "Buy", 1, 3}}}},
@@ -653,9 +699,9 @@ local Module = {} do
 				return NewTab
 			end
 		end
-		
-		Module.RunFunctions.Quests = function(self, QuestsModule, getTasks)
-			local MaxLvl = ({ {0, 700}, {700, 1500}, {1500, math.huge} })[self.Sea]
+
+     Module.RunFunctions.Quests = function(self, QuestsModule, getTasks)
+			local MaxLvl = ({ {0, 700}, {700, 1500}, {1500, LevelCap} })[self.Sea]
 			local bl_Quests = {"BartiloQuest", "MarineQuest", "CitizenQuest"}
 			
 			for name, task in QuestsModule do
@@ -764,15 +810,7 @@ end
 			end
 		end
 	end
-
-  	function Module.WalkOnWater(Value)
-          local Water = workspace.Map["WaterBase-Plane"]
-           if not Water then
-        return
-      end
-       Water.Size = Value and Vector3.new(1000, 112, 1000) or Vector3.new(1000, 80, 1000)
-     end
-
+	
 	function Module.IsBoss(Name: string): boolean
 		return Module.Bosses[Name] and true or false
 	end
@@ -1074,35 +1112,26 @@ end
           if typeof(Fruit) ~= "Instance" or not Fruit.Parent then
             return "Fruit [ ??? ]"
         end
-
         local RealFruitsName = Module.FruitsId
-
         rawset(self, Fruit, "Fruit [ ??? ]")
-
         task.spawn(function()
             pcall(function()
                 if not Fruit.Parent then return end
-
                 local Model = Fruit:WaitForChild("Fruit", 5)
                 if not Model or not Fruit.Parent then return end
-
                 local Idle = FastWait(2, Model, "Idle") or FastWait(1, Model, "Animation") or FastWait(1, Model, "Fruit")
-
                 if Idle and (Idle:IsA("Animation") or Idle:IsA("MeshPart")) and Fruit.Parent then
                     local Property = if Idle:IsA("MeshPart") then "MeshId" else "AnimationId"
                     local RealName = RealFruitsName[Idle[Property] or ""]
-
                     if RealName and type(RealName) == "string" then
                         if not RealName:find("%-") then
                             RealName = RealName .. "-" .. RealName
                         end
-
                         rawset(self, Fruit, `Fruit [ {RealName} ]`)
                     end
                 end
             end)
         end)
-
         return "Fruit [ ??? ]"
     end
 })
@@ -1117,7 +1146,7 @@ Module.Enemies = (function()
 
 		local TagsMobs = {
 			__Elite = CreateDictionary({ "Deandre", "Diablo", "Urban" }, true),
-			__Bones = CreateDictionary({ "Reborn Skeleton", "Living Zombie", "Demonic Soul", "Posessed Mummy" }, true),
+			__Bones = CreateDictionary({ "Living Zombie", "Demonic Soul", "Posessed Mummy" }, true),
 			__CakePrince = CreateDictionary({ "Head Baker", "Baking Staff", "Cake Guard", "Cookie Crafter" }, true),
 			__TyrantSkies = CreateDictionary({ "Sun-kissed Warrior", "Skull Slayer", "Isle Champion", "Serpent Hunter" }, true)
 		}
@@ -1315,7 +1344,7 @@ local PlayerRootPart = (Player.Character or Player.CharacterAdded()):WaitForChil
             BodyPosition.Position = Target.Position
           end
          else
-          if (RootPart.Position - Target.Position).Magnitude <= 300 then
+          if (RootPart.Position - Target.Position).Magnitude <= 250 then
             RootPart.CFrame = Target
             RootPart.CanCollide = false
           else
@@ -1420,11 +1449,11 @@ end
 end
 
       function Inventory:Refresh() for _, item in pairs(getInventory()) do self:UpdateItem(item) end end
-
+      Inventory:Refresh()
       spawn(function()
-        while task.wait(Settings.SmoothMode and 0.25 or 0) do
+        while task.wait() do
             pcall(function()
-               Inventory:Refresh()
+                 Inventory:Refresh() 
             end)
         end
     end)
@@ -1436,7 +1465,7 @@ end
 		end
 		
 		task.spawn(function()
-			table.insert(Connections, CommE.OnClientEvent:Connect(OnClientEvent))
+			table.insert(Connections, CommE.OnClientEvent:Connect(OnClientEvent)) 
 		end)
 		
 		return Inventory
@@ -1504,7 +1533,8 @@ end
 		
 		FastAttack.ShootsFunctions = {
 			["Skull Guitar"] = function(self: FastAttack, Equipped: Tool, Position: Vector3): (nil)
-				Equipped.RemoteEvent:FireServer("TAP", Position) -- Events.ShootSoulGuitar:Invoke(Position)
+                local humanoid = Equipped.Parent:FindFirstChildOfClass("Humanoid")
+                for _, v in ipairs(humanoid:GetChildren()) do if v:IsA("RemoteFunction") and v.Name == "" then v:InvokeServer("TAP", Position) end end
 			end
 		}
 		
@@ -1667,7 +1697,8 @@ end
 							GunValidator:FireServer(self:GetValidator2())
 							
 							if ShootType == "TAP" then
-								Equipped.RemoteEvent:FireServer("TAP", TargetPosition)
+							  local humanoid = Equipped.Parent:FindFirstChildOfClass("Humanoid")
+                              for _, v in ipairs(humanoid:GetChildren()) do if v:IsA("RemoteFunction") and v.Name == "" then v:InvokeServer("TAP", Position) end end
 							else
 								RE_ShootGunEvent:FireServer(TargetPosition)
 							end
@@ -1717,7 +1748,7 @@ end
 				local Enemy = _Enemies[i]
 				local RootPart = IsAlive(Enemy) and Enemy.PrimaryPart
 				
-				if RootPart and (RootPart.Position - MyPosition).Magnitude <= 50 then
+				if RootPart and (RootPart.Position - MyPosition).Magnitude <= 55 then
 					Equipped.LeftClickRemote:FireServer((RootPart.Position - MyPosition).Unit, Combo)
 				end
 			end
@@ -1933,6 +1964,120 @@ end
 		
 		return RaidList
 	end)()
+	
+	Module.Tween = (function()
+		local BodyVelocity = Instance.new("BodyVelocity")
+		BodyVelocity.Velocity = Vector3.zero
+		BodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+		BodyVelocity.P = 1000
+		
+		if _ENV.tween_bodyvelocity then
+			_ENV.tween_bodyvelocity:Destroy()
+		end
+		
+		_ENV.tween_bodyvelocity = BodyVelocity
+		
+		local IsAlive = Module.IsAlive
+		local CanRemoveTag = false
+		
+		local BaseParts, CanCollideObjects, CanTouchObjects = {}, {}, {} do
+			local function AddObjectToBaseParts(Object)
+				if Object:IsA("BasePart") and (Object.CanCollide or Object.CanTouch) then
+					table.insert(BaseParts, Object)
+					
+					if Object.CanCollide then CanCollideObjects[Object] = true end
+					if Object.CanTouch then CanTouchObjects[Object] = true end
+				end
+			end
+			
+			local function RemoveObjectsFromBaseParts(BasePart)
+				local index = table.find(BaseParts, BasePart)
+				
+				if index then
+					table.remove(BaseParts, index)
+				end
+			end
+			
+			local function NewCharacter(Character)
+				table.clear(BaseParts)
+				
+				for _, Object in ipairs(Character:GetDescendants()) do AddObjectToBaseParts(Object) end
+				Character.DescendantAdded:Connect(AddObjectToBaseParts)
+				Character.DescendantRemoving:Connect(RemoveObjectsFromBaseParts)
+				
+				Character:WaitForChild("Humanoid", 9e9).Died:Wait()
+				table.clear(BaseParts)
+			end
+			
+			table.insert(Connections, Player.CharacterAdded:Connect(NewCharacter))
+			task.spawn(NewCharacter, Player.Character)
+		end
+		
+		local function NoClipOnStepped(Character)
+			if not IsAlive(Character) then return end
+			
+			if _ENV.OnFarm and not Player:HasTag("Teleporting") then
+				Player:AddTag("Teleporting")
+				CanRemoveTag = true
+			elseif not _ENV.OnFarm and CanRemoveTag and Player:HasTag("Teleporting") then
+				Player:RemoveTag("Teleporting")
+				CanRemoveTag = false
+			end
+			
+			if _ENV.OnFarm then
+				for i = 1, #BaseParts do
+					local BasePart = BaseParts[i]
+					local CanTouchValue = if (tick() - Module.RemoveCanTouch) <= 1 then false else true
+					
+					if CanTouchObjects[BasePart] and BasePart.CanTouch ~= CanTouchValue then
+						BasePart.CanTouch = CanTouchValue
+					end
+					if CanCollideObjects[BasePart] and BasePart.CanCollide then
+						BasePart.CanCollide = false
+					end
+				end
+			elseif Character.PrimaryPart and (not Character.PrimaryPart.CanCollide or not Character.PrimaryPart.CanTouch) then
+				for i = 1, #BaseParts do
+					local BasePart = BaseParts[i]
+					
+					if CanCollideObjects[BasePart] then
+						BasePart.CanCollide = true
+					end
+					if CanTouchObjects[BasePart] then
+						BasePart.CanTouch = true
+					end
+				end
+			end
+		end
+		
+		local function UpdateVelocityOnStepped(Character)
+			local RootPart = Character and Character:FindFirstChild("UpperTorso")
+			local Humanoid = Character and Character:FindFirstChild("Humanoid")
+			local BodyVelocity = _ENV.tween_bodyvelocity
+			
+			if _ENV.OnFarm and RootPart and Humanoid and Humanoid.Health > 0 then
+				if BodyVelocity.Parent ~= RootPart then
+					BodyVelocity.Parent = RootPart
+				end
+			else
+				if BodyVelocity.Parent then
+					BodyVelocity.Parent = nil
+				end
+			end
+			
+			if BodyVelocity.Velocity ~= Vector3.zero and (not Humanoid or not Humanoid.SeatPart or not _ENV.OnFarm) then
+				BodyVelocity.Velocity = Vector3.zero
+			end
+		end
+		
+		table.insert(Connections, Stepped:Connect(function()
+			local Character = Player.Character
+			UpdateVelocityOnStepped(Character)
+			NoClipOnStepped(Character)
+		end))
+		
+		return BodyVelocity
+	end)()
 
   Module.Hooking = (function()
 		local Hooking = {
@@ -1987,7 +2132,7 @@ end
 				local Distance = 900
 				local ClosestsDistance = if Equipped.ToolTip == "Gun" then 120 else 60
 
-               if not Settings.NoAimPlayer then
+               if not _G.NoAimPlayer then
 				for i = 1, #Players do
 					local __Player = Players[i]
 					local Character = __Player.Character
@@ -2007,7 +2152,7 @@ end
 				end
             end
 				
-				if not Settings.NoAimMobs then
+				if not _G.NoAimMobs then
 				for i = 1, #Enemies do
 					local Enemy = Enemies[i]
 					local UpperTorso = Enemy and Enemy:FindFirstChild("UpperTorso")
@@ -2087,8 +2232,8 @@ end
 		return Hooking
 	end)()
 
---[[  task.defer(function()
-	 	local DeathEffect = require(WaitChilds(ReplicatedStorage, "Effect", "Container", "Death"))
+  task.defer(function()
+	 	local DeathEffect = require(WaitChilds(ReplicatedStorage, "EffectContainer", "Death"))
 	 	local CameraShaker = require(WaitChilds(ReplicatedStorage, "Util", "CameraShaker"))
 		if CameraShaker then
 	 		CameraShaker:Stop()
@@ -2097,7 +2242,7 @@ end
  		hookfunction(DeathEffect, function(...) return ... end)
 	 	end
 	end)
-]]	
+	
 	task.spawn(function()
 		local SpawnLocations = Module.SpawnLocations
 		local EnemyLocations = Module.EnemyLocations
