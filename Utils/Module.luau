@@ -1107,6 +1107,35 @@ end
 		end
 	})
 
+	Module.Berries = setmetatable({}, {
+    __call = function(self, BerryArray)
+        if self.Debounce and (tick() - self.Debounce) < 0.5 then
+            return self.Cached or {}
+        end
+
+        local BushList = CollectionService:GetTagged("BerryBush")
+        local Result = {}
+
+        for i = 1, #BushList do
+            local Bush = BushList[i]
+
+            for AttributeName, BerryName in pairs(Bush:GetAttributes()) do
+            
+                if not BerryArray or table.find(BerryArray, BerryName) then
+                    if type(BerryName) == "string" then
+                        table.insert(Result, BerryName)
+                    end
+                    break 
+                end
+            end
+        end
+
+        self.Debounce = tick()
+        self.Cached = Result
+        return Result
+    end
+})													
+														
 	Module.FruitsName = setmetatable({}, {
       __index = function(self, Fruit)
           if typeof(Fruit) ~= "Instance" or not Fruit.Parent then
