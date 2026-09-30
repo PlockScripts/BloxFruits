@@ -13,7 +13,6 @@ local _ENV = (getgenv or getrenv or getfenv)()
 local ActiveTween = false
 local TweenId = 0
 local CurrentTarget = nil
-local WasPlatformStand = false
 
 _ENV.StopAllTP = _ENV.StopAllTP or false
 
@@ -78,26 +77,6 @@ local function ToggleNoClip(State)
     end
 end
 
-local function Stabilize(Character, State)
-    local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
-    local RootPart = Character and Character:FindFirstChild("HumanoidRootPart")
-
-    if not Humanoid or not RootPart then
-        return
-    end
-
-    if State then
-        WasPlatformStand = Humanoid.PlatformStand
-        Humanoid.PlatformStand = true
-        RootPart.AssemblyLinearVelocity = Vector3.zero
-        RootPart.AssemblyAngularVelocity = Vector3.zero
-    else
-        RootPart.AssemblyLinearVelocity = Vector3.zero
-        RootPart.AssemblyAngularVelocity = Vector3.zero
-        Humanoid.PlatformStand = WasPlatformStand
-    end
-end
-
 local PlayerTP = {}
 
 function PlayerTP:SetSpeed(Speed)
@@ -133,11 +112,8 @@ function PlayerTP:Stop()
                 Hover:Destroy()
             end
 
-            RootPart.AssemblyLinearVelocity = Vector3.zero
             RootPart.AssemblyAngularVelocity = Vector3.zero
         end
-
-        Stabilize(Character, false)
     end
 
     ToggleNoClip(false)
@@ -189,8 +165,6 @@ function PlayerTP:Teleport(TargetCFrame)
             ToggleNoClip(true)
         end
 
-        Stabilize(Character, true)
-
         local TargetPosition = TargetCFrame.Position
 
         while ActiveTween and CurrentTweenId == TweenId do
@@ -232,7 +206,6 @@ function PlayerTP:Teleport(TargetCFrame)
             end
 
             DriveTarget.AssemblyLinearVelocity = Vector3.zero
-            DriveTarget.AssemblyAngularVelocity = Vector3.zero
             DriveTarget.CFrame = CFrame.new(CurrentPosition + MoveStep, TargetPosition)
         end
 
@@ -245,8 +218,6 @@ function PlayerTP:Teleport(TargetCFrame)
         end
 
         if ActiveTween and CurrentTweenId == TweenId and _ENV.OnFarm ~= false and DriveTarget and DriveTarget.Parent then
-            DriveTarget.AssemblyLinearVelocity = Vector3.zero
-            DriveTarget.AssemblyAngularVelocity = Vector3.zero
             DriveTarget.CFrame = TargetCFrame
         end
 
@@ -286,9 +257,6 @@ RunService.Stepped:Connect(function()
     if Settings.NoClip then
         ToggleNoClip(true)
     end
-
-    RootPart.AssemblyLinearVelocity = Vector3.zero
-    RootPart.AssemblyAngularVelocity = Vector3.zero
 end)
 
 task.spawn(function()
