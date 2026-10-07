@@ -20,7 +20,7 @@
   "Auto Store Holiday Gift": ["Armazenar Prensentes", "Armazenar presentes coletados no Evento"],
   
   "Auto Chest [ Tween ]": ["Auto Baús [ Tween ]", "Coleta cofres automaticamente usando Tween"],
-  "Stop Collect Item": ["Pare a coleta de Itens"], "Pare de coletar baús se encontrar o Cálice de Deus ou o Punho das Trevas."],
+  "Stop Collect Item": ["Pare a coleta de Itens", "Pare de coletar baús se encontrar o Cálice de Deus ou o Punho das Trevas."],
   
   "Update Boss List": ["Atualizar Lista de Bosses", "Atualiza a lista de chefes disponíveis"],
   "Boss List": ["Lista de Bosses", "Seleciona um boss para atacar"],
