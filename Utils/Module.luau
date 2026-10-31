@@ -1712,6 +1712,9 @@ end
 			if Anything or self.attackMobs then
 				ProcessHits(Enemies, self.Equipped, Distance)
 			end
+           if Anything or self.attackMobs then
+				ProcessHits(workspace.PumpkinHunt, self.Equipped, Distance)
+			end
 			if Anything or self.attackPlayers then
 				ProcessHits(Characters, self.Equipped, Distance)
 			end
@@ -2005,120 +2008,6 @@ end
 		return RaidList
 	end)()
 	
-	--[[Module.Tween = (function()
-		local BodyVelocity = Instance.new("BodyVelocity")
-		BodyVelocity.Velocity = Vector3.zero
-		BodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-		BodyVelocity.P = 1000
-		
-		if _ENV.tween_bodyvelocity then
-			_ENV.tween_bodyvelocity:Destroy()
-		end
-		
-		_ENV.tween_bodyvelocity = BodyVelocity
-		
-		local IsAlive = Module.IsAlive
-		local CanRemoveTag = false
-		
-		local BaseParts, CanCollideObjects, CanTouchObjects = {}, {}, {} do
-			local function AddObjectToBaseParts(Object)
-				if Object:IsA("BasePart") and (Object.CanCollide or Object.CanTouch) then
-					table.insert(BaseParts, Object)
-					
-					if Object.CanCollide then CanCollideObjects[Object] = true end
-					if Object.CanTouch then CanTouchObjects[Object] = true end
-				end
-			end
-			
-			local function RemoveObjectsFromBaseParts(BasePart)
-				local index = table.find(BaseParts, BasePart)
-				
-				if index then
-					table.remove(BaseParts, index)
-				end
-			end
-			
-			local function NewCharacter(Character)
-				table.clear(BaseParts)
-				
-				for _, Object in ipairs(Character:GetDescendants()) do AddObjectToBaseParts(Object) end
-				Character.DescendantAdded:Connect(AddObjectToBaseParts)
-				Character.DescendantRemoving:Connect(RemoveObjectsFromBaseParts)
-				
-				Character:WaitForChild("Humanoid", 9e9).Died:Wait()
-				table.clear(BaseParts)
-			end
-			
-			table.insert(Connections, Player.CharacterAdded:Connect(NewCharacter))
-			task.spawn(NewCharacter, Player.Character)
-		end
-		
-		local function NoClipOnStepped(Character)
-			if not IsAlive(Character) then return end
-			
-			if _ENV.OnFarm and not Player:HasTag("Teleporting") then
-				Player:AddTag("Teleporting")
-				CanRemoveTag = true
-			elseif not _ENV.OnFarm and CanRemoveTag and Player:HasTag("Teleporting") then
-				Player:RemoveTag("Teleporting")
-				CanRemoveTag = false
-			end
-			
-			if _ENV.OnFarm then
-				for i = 1, #BaseParts do
-					local BasePart = BaseParts[i]
-					local CanTouchValue = if (tick() - Module.RemoveCanTouch) <= 1 then false else true
-					
-					if CanTouchObjects[BasePart] and BasePart.CanTouch ~= CanTouchValue then
-						BasePart.CanTouch = CanTouchValue
-					end
-					if CanCollideObjects[BasePart] and BasePart.CanCollide then
-						BasePart.CanCollide = false
-					end
-				end
-			elseif Character.PrimaryPart and (not Character.PrimaryPart.CanCollide or not Character.PrimaryPart.CanTouch) then
-				for i = 1, #BaseParts do
-					local BasePart = BaseParts[i]
-					
-					if CanCollideObjects[BasePart] then
-						BasePart.CanCollide = true
-					end
-					if CanTouchObjects[BasePart] then
-						BasePart.CanTouch = true
-					end
-				end
-			end
-		end
-		
-		local function UpdateVelocityOnStepped(Character)
-			local RootPart = Character and Character:FindFirstChild("UpperTorso")
-			local Humanoid = Character and Character:FindFirstChild("Humanoid")
-			local BodyVelocity = _ENV.tween_bodyvelocity
-			
-			if _ENV.OnFarm and RootPart and Humanoid and Humanoid.Health > 0 then
-				if BodyVelocity.Parent ~= RootPart then
-					BodyVelocity.Parent = RootPart
-				end
-			else
-				if BodyVelocity.Parent then
-					BodyVelocity.Parent = nil
-				end
-			end
-			
-			if BodyVelocity.Velocity ~= Vector3.zero and (not Humanoid or not Humanoid.SeatPart or not _ENV.OnFarm) then
-				BodyVelocity.Velocity = Vector3.zero
-			end
-		end
-		
-		table.insert(Connections, Stepped:Connect(function()
-			local Character = Player.Character
-			UpdateVelocityOnStepped(Character)
-			NoClipOnStepped(Character)
-		end))
-		
-		return BodyVelocity
-	end)()
-]]
   Module.Hooking = (function()
 		local Hooking = {
 			Skills = CreateDictionary({ "Z", "X", "C", "V", "F" }, true),
