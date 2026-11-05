@@ -1366,7 +1366,7 @@ local PlayerRootPart = (Player.Character or Player.CharacterAdded()):WaitForChil
       while PlayerRootPart and RootPart and Humanoid and Humanoid.Health > 0 and Enemy and Enemy.Parent == Enemies and Enemy:HasTag(BRING_TAG) do
         local Target = Cached.Bring[if Module.IsSuperBring then "ALL_MOBS" else EnemyName]
         
-        if Target and (PlayerRootPart.Position - RootPart.Position).Magnitude <= Settings.BringDistance then
+        if Target and (PlayerRootPart.Position - RootPart.Position).Magnitude <= Settings.BringDistance and not Enemy:GetAttribute("RaidBoss") and not Enemy:GetAttribute("Boss") then
        if _ENV.rz_EnabledOptions.Ectoplasm then
            if (RootPart.Position - Target.Position).Magnitude <= 200 then
             RootPart.CFrame = Target
@@ -1376,7 +1376,7 @@ local PlayerRootPart = (Player.Character or Player.CharacterAdded()):WaitForChil
             BodyPosition.Position = Target.Position
           end
        elseif _ENV.rz_EnabledOptions.DungeonKill then
-       if (RootPart.Position - Target.Position).Magnitude <= 150 and not Enemy:GetAttribute("RaidBoss") then
+       if (RootPart.Position - Target.Position).Magnitude <= 100 then
             RootPart.CFrame = Target
             RootPart.CanCollide = false
           else
@@ -1384,7 +1384,7 @@ local PlayerRootPart = (Player.Character or Player.CharacterAdded()):WaitForChil
             BodyPosition.Position = Target.Position
           end
          else
-          if (RootPart.Position - Target.Position).Magnitude <= 250 then
+          if (RootPart.Position - Target.Position).Magnitude <= 225 then
             RootPart.CFrame = Target
             RootPart.CanCollide = false
           else
@@ -1419,6 +1419,7 @@ end
 		
 		return EnemiesModule
 	end)()
+
 
   local function safeGetItems()
     local ok, result = pcall(function()
