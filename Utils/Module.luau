@@ -619,32 +619,21 @@ end
 	    Signals.Notify = Signal.new()
   	  Signals.Error = Signal.new()
 
-	    Signals.Error:Connect(function(ErrorMessage)
-     	   _ENV.loadedFarm = nil
- 	       _ENV.OnFarm = false
-
-     	   local text = (`redz-Hub error [ {Settings.RunningOption or "Null"} ] {ErrorMessage}`)
-
-  	      if _ENV.rz_error_message and _ENV.rz_error_message.Parent then
-  	          _ENV.rz_error_message.Text = text
-    	    else
-    	        local Message = Instance.new("Message", workspace)
-  	          _ENV.rz_error_message = Message
-     	       Message.Text = text
-	        end
-
-  	      if _ENV.rz_error_cleanup_task then
- 	           task.cancel(_ENV.rz_error_cleanup_task)
-	        end
-
-   	     _ENV.rz_error_cleanup_task = task.delay(10000000000, function()
-        	    if _ENV.rz_error_message then
-      	          _ENV.rz_error_message:Destroy()
- 	               _ENV.rz_error_message = nil
-   	         end
- 	           _ENV.rz_error_cleanup_task = nil
- 	       end)
-	    end)
+		Signals.Error:Connect(function(ErrorMessage)
+			_ENV.loadedFarm = false
+			_ENV.OnFarm = false
+			
+			local text = (`redz-Hub error [ {Settings.RunningOption or "Null"} ] {ErrorMessage}`)
+			
+			if _ENV.rz_error_message then
+				_ENV.rz_error_message.Text ..= `\n\n{ text }`
+				return nil
+			end
+			
+			local Message = Instance.new("Message", workspace)
+			_ENV.rz_error_message = Message
+			Message.Text = text
+		end)
 	end
 	
 	Module.RunFunctions = {} do
@@ -1743,9 +1732,6 @@ end
 			
 			if Anything or self.attackMobs then
 				ProcessHits(Enemies, self.Equipped, Distance)
-			end
-           if Anything or self.attackMobs then
-				ProcessHits(workspace.PumpkinHunt, self.Equipped, Distance)
 			end
 			if Anything or self.attackPlayers then
 				ProcessHits(Characters, self.Equipped, Distance)
